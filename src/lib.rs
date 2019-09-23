@@ -41,4 +41,14 @@ pub mod android {
 
         output.into_inner()
     }
+
+    #[no_mangle]
+    pub extern "system" fn Java_com_example_rustapp_HelloRust_sayHello(env: JNIEnv, _: JClass, input: JString) -> jstring {
+        let input : String = env.get_string(input).expect("Couldn't get Java string").into();
+
+        let output = env.new_string(format!("Hello, {}!", input)).expect("Couldn't create Java String!");
+
+        output.into_inner()
+    }
+
 }
